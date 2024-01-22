@@ -1,4 +1,6 @@
+using DataAccess.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -22,8 +24,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     }
-); 
+);
 
+builder.Services.AddDbContext<AuthApplicationContext>(options => options.UseSqlServer("name=DefaultConnection",
+    b => b.MigrationsAssembly("IdentityServer")));
 
 var app = builder.Build();
 

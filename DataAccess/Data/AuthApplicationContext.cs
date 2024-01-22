@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DataAccess.Data
 {
@@ -18,19 +14,27 @@ namespace DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            /*var readerRoleId = "06b4a61f-fadd-4cb4-9e4a-7d8aa444d842";
+            var readerRoleId = "06b4a61f-fadd-4cb4-9e4a-7d8aa444d842";
             var writerRoleId = "01f25097-846a-4e70-9e5c-78390b308731";
 
             var roles = new List<IdentityRole> 
             {
-                new IdentityRole
+                new()
                 {
                     Id = readerRoleId,
-                    ConcurencyStamp = readerRoleId,
+                    ConcurrencyStamp = readerRoleId,
                     Name = "Reader",
-                    
+                    NormalizedName = "Reader".ToUpper()
+                },
+                new() {
+                    Id = writerRoleId,
+                    ConcurrencyStamp = writerRoleId,
+                    Name = "Writer",
+                    NormalizedName = "Writer".ToUpper()
                 }
-            };*/
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
         }
     }
 }

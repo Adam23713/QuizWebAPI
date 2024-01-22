@@ -1,7 +1,7 @@
 ﻿using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Models.Domain;
+using Models.Modles.Domain;
 
 namespace DataAccess.Repository
 {

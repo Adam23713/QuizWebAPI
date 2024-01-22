@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 namespace DataAccess.Data
 {
-    public class AuthApplicationContext : DbContext
+    public class AuthApplicationContext : IdentityDbContext
     {
+        //public DbSet<IdentityUser> IdentityUsers { get; set; }
+
         public AuthApplicationContext(DbContextOptions<AuthApplicationContext> options) : base(options) 
         { 
         }

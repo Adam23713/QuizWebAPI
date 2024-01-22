@@ -2,8 +2,8 @@
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.Domain;
-using Models.DTO;
+using Models.Modles.Domain;
+using Models.Modles.DTO;
 
 namespace QuizWebAPI.Controllers
 {

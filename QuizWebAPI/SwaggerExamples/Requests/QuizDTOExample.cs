@@ -1,4 +1,4 @@
-﻿using Models.DTO;
+﻿using Models.Modles.DTO;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace QuizWebAPI.SwaggerExamples.Requests

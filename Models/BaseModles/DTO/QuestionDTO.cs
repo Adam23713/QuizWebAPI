@@ -1,4 +1,4 @@
-﻿namespace Models.DTO
+﻿namespace Models.Modles.DTO
 {
     public class QuestionDTO
     {

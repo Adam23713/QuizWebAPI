@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Models.Domain;
-using Models.DTO;
+using Models.Modles.Domain;
+using Models.Modles.DTO;
 
 namespace Models.Mappings
 {

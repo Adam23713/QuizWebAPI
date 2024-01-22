@@ -1,9 +1,7 @@
-﻿namespace Models.Domain
+﻿namespace Models.Modles.DTO
 {
-    public class Quiz
+    public class QuizDTO
     {
-        public int Id { get; set; }
-
         public bool IsEnabled { get; set; }
 
         public string Name { get; set; } = null!;
@@ -16,6 +14,6 @@
 
         public DateTime End { get; set; }
 
-        public List<Question> Questions { get; set; } = null!;
+        public List<QuestionDTO> Questions { get; set; } = null!;
     }
 }

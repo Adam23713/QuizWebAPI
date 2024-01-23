@@ -1,19 +1,18 @@
-﻿namespace Models.Modles.DTO
+﻿using Models.BaseModles.Domain.Base;
+using Models.Modles.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models.BaseModles.DTO
 {
-    public class QuizDTO
+    /// <summary>
+    /// Quizz DTO. No ids in the objects
+    /// </summary>
+    public class QuizDTO : QuizeBase
     {
-        public bool IsEnabled { get; set; }
-
-        public string Name { get; set; } = null!;
-
-        public string Description { get; set; } = null!;
-
-        public ulong TimeLimitInMinutes { get; set; }
-
-        public DateTime Begin { get; set; }
-
-        public DateTime End { get; set; }
-
         public List<QuestionDTO> Questions { get; set; } = null!;
     }
 }

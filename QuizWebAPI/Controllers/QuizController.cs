@@ -2,8 +2,9 @@
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.BaseModles.DTO.Requests.Quiz;
+using Models.BaseModles.DTO.Response.Quiz;
 using Models.Modles.Domain;
-using Models.Modles.DTO;
 
 namespace QuizWebAPI.Controllers
 {
@@ -41,7 +42,7 @@ namespace QuizWebAPI.Controllers
         public async Task<IActionResult> GetAllQuiz()
         {
             var quizzes = await quizRepository.GetQuizzesAsync();
-            return Ok(mapper.Map<List<QuizDTO>>(quizzes));
+            return Ok(mapper.Map<List<GetQuizResponse>>(quizzes));
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace QuizWebAPI.Controllers
         /// <response code="200">Returns the selected quiz</response>
         /// <response code="404">Quiz not found</response>
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(QuizDTO), 201)]
+        [ProducesResponseType(typeof(GetQuizResponse), 201)]
         public async Task<IActionResult> GetQuiz([FromRoute] int id)
         {
             var quiz = await quizRepository.GetQuizByIdAsync(id);
@@ -64,7 +65,7 @@ namespace QuizWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(mapper.Map<QuizDTO>(quiz));
+            return Ok(mapper.Map<GetQuizResponse>(quiz));
         }
 
         /// <summary>
@@ -74,8 +75,8 @@ namespace QuizWebAPI.Controllers
         /// <response code="201">Create a quiz in the system</response>
         /// <response code="400">Bad request</response>
         [HttpPost]
-        [ProducesResponseType(typeof(QuizDTO), 201)]
-        public async Task<IActionResult> CreateQuiz([FromBody] QuizDTO quiz)
+        [ProducesResponseType(typeof(GetQuizResponse), 201)]
+        public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizRequest quiz)
         {
             // Convert DTO to Domain Modell
             var newQuiz = mapper.Map<Quiz>(quiz);
@@ -87,10 +88,11 @@ namespace QuizWebAPI.Controllers
             }
 
             // Convert back to DTO
-            var savedQuizDto = mapper.Map<QuizDTO>(savedQuiz);
+            var savedQuizDto = mapper.Map<GetQuizResponse>(savedQuiz);
 
             // Return created http code and show saved user
             return CreatedAtAction(nameof(GetQuiz), new { id = savedQuiz.Id }, savedQuizDto);
         }
+
     }
 }

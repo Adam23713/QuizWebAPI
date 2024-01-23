@@ -1,4 +1,5 @@
-﻿using Models.Modles.DTO;
+﻿using Models.BaseModles.DTO;
+using Models.BaseModles.DTO.Requests.Quiz;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace QuizWebAPI.SwaggerExamples.Requests
@@ -6,11 +7,11 @@ namespace QuizWebAPI.SwaggerExamples.Requests
     /// <summary>
     /// Example for a quiz dto (to swagger GUI)
     /// </summary>
-    public class QuizDTOExample : IExamplesProvider<QuizDTO>
+    public class CreateQuizExample : IExamplesProvider<CreateQuizRequest>
     {
-        public QuizDTO GetExamples()
+        public CreateQuizRequest GetExamples()
         {
-            return new QuizDTO
+            return new CreateQuizRequest
             {
                 IsEnabled = true,
                 Name = "Test Quiz",

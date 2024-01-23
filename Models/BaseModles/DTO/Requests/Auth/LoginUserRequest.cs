@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Requests.Auth
+namespace Models.BaseModles.DTO.Requests.Auth
 {
-    public class RegisterUserRequest
+    public class LoginUserRequest
     {
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -16,7 +16,5 @@ namespace Models.Requests.Auth
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
-
-        public string[]? Roles { get; set; }
     }
 }

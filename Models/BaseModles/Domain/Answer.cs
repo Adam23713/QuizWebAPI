@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Models.BaseModles.Domain.Base;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models.Modles.Domain
 {
-    public class Answer
+    public class Answer : AnswerBase
     {
+        [Key]
         public int Id { get; set; }
 
         public int QuestionId { get; set; }
-
-        public bool IsRight { get; set; }
-
-        public string AnswerText { get; set; } = null!;
     }
 }

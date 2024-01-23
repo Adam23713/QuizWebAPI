@@ -1,8 +1,8 @@
 ﻿using DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Models.Requests.Auth;
-using Models.Response.Auth;
+using Models.BaseModles.DTO.Requests.Auth;
+using Models.BaseModles.DTO.Response.Auth;
 
 namespace IdentityServer.Controllers
 {

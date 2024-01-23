@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models.BaseModles.Domain.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models.Modles.Domain
 {
-    public class UserAnswer
+    public class UserAnswer : UserAnswerBase
     {
+        [Key]
         public int Id { get; set; }
-
-        public int UserId { get; set; }
-
-        public int QuestionId { get; set; }
-
-        List<int> Answers { get; set; } = null!;
     }
 }

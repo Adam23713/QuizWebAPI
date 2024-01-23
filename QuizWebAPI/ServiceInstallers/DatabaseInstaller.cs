@@ -8,7 +8,7 @@ namespace QuizWebAPI.ServiceInstallers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<SQLApplicationContext>(options => options.UseSqlServer("name=DefaultConnection"));
+            services.AddDbContext<SQLApplicationContext>(options => options.UseSqlServer("name=DefaultConnection", b => b.MigrationsAssembly("QuizWebAPI")));
             services.AddScoped<IRepository, SQLRepository>();
         }
     }

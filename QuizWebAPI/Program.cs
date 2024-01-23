@@ -1,4 +1,5 @@
 using DataAccess.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Models.Mappings;
@@ -23,30 +24,19 @@ Select(Activator.CreateInstance).Cast<IServiceInstaller>().ToList();
 //Add services
 servicesInstallers.ForEach(installer => installer.InstallServices(builder.Services, builder.Configuration));
 
-/*builder.Services.AddAuthentication("Bearer")
-    .AddIdentityServerAuthentication(options =>
-    {
-        options.Authority = "https://localhost:7007"; // Replace with your IdentityServer URL
-        options.ApiSecret = "71947ab71fe401a6af4cf23daa21b337e7c08c52589b535f32099572e22ed094";
-        options.RequireHttpsMetadata = true; // Set to true in production
-        options.ApiName = "IdentityServer"; // Replace with your API resource name
-    });*/
-
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication()
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("71947ab71fe401a6af4cf23daa21b337e7c08c52589b535f32099572e22ed094"));
-        options.SaveToken = true;
-        options.Authority = "https://localhost:7007";
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateAudience = false,
-            ValidateIssuer = false,
-            IssuerSigningKey = key
-        };
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    }
+);
 
 
 var app = builder.Build();

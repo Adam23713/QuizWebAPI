@@ -5,7 +5,7 @@ namespace Models.BaseModles.Domain.Base
     /// <summary>
     /// Base model of Quiz. No id in the base class
     /// </summary>
-    public class QuizeBase
+    public class QuizeBase<T>
     {
         public bool IsEnabled { get; set; }
 
@@ -18,5 +18,7 @@ namespace Models.BaseModles.Domain.Base
         public DateTime Begin { get; set; }
 
         public DateTime End { get; set; }
+
+        public List<T> Questions { get; set; } = null!;
     }
 }

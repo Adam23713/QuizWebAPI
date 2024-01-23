@@ -1,13 +1,11 @@
 ﻿using Models.BaseModles.Domain.Base;
+using Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Models.Modles.Domain
 {
-    public class Quiz : QuizeBase
+    public class Quiz : QuizeBase<Question>, IIdentity
     {
-        [Key]
         public int Id { get; set; }
-
-        public List<Question> Questions { get; set; } = null!;
     }
 }

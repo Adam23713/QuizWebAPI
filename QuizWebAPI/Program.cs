@@ -1,10 +1,6 @@
-using DataAccess.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Models.Mappings;
 using QuizWebAPI.ServiceInstallers;
-using System.Text;
+using QuizWebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,20 +20,7 @@ Select(Activator.CreateInstance).Cast<IServiceInstaller>().ToList();
 //Add services
 servicesInstallers.ForEach(installer => installer.InstallServices(builder.Services, builder.Configuration));
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    }
-);
-
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 var app = builder.Build();
 

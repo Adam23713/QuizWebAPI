@@ -2,9 +2,9 @@
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models.BaseModles.DTO.Requests.Quiz;
-using Models.BaseModles.DTO.Response.Quiz;
 using Models.Modles.Domain;
+using Models.Requests.Quiz;
+using Models.Response.Quiz;
 
 namespace QuizWebAPI.Controllers
 {

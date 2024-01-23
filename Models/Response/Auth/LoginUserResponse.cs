@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.BaseModles.DTO.Response.Auth
+namespace Models.Response.Auth
 {
     public class LoginUserResponse
     {

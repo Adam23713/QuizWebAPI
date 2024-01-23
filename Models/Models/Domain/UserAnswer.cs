@@ -1,11 +1,11 @@
 ﻿using Models.BaseModles.Domain.Base;
+using Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Models.Modles.Domain
 {
-    public class UserAnswer : UserAnswerBase
+    public class UserAnswer : UserAnswerBase, IIdentity
     {
-        [Key]
         public int Id { get; set; }
     }
 }

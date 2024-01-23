@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.BaseModles.Domain.Base;
 using Models.Modles.Domain;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,11 @@ namespace DataAccess.Data
         public SQLApplicationContext(DbContextOptions<SQLApplicationContext> options) : base(options)
         {
             
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserAnswer>().HasKey(u => u.Id);
         }
     }
 }

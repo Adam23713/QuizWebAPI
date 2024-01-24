@@ -1,5 +1,6 @@
 using DataAccess.Data;
 using DataAccess.Repository;
+using DataAccess.Repository.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

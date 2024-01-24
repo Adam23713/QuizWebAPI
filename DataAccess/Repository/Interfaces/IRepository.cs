@@ -1,6 +1,6 @@
 ﻿using Models.Modles.Domain;
 
-namespace DataAccess.Repository
+namespace DataAccess.Repository.Interfaces
 {
     public interface IRepository
     {

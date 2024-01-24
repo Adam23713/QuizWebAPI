@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data;
+using DataAccess.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models.Modles.Domain;

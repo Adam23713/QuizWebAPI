@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models.Modles.Domain;
 using Models.Requests.Quiz;
 using Models.Response.Quiz;
+using QuizWebAPI.Services.Interfaces;
 
 namespace QuizWebAPI.Controllers
 {
@@ -15,18 +16,18 @@ namespace QuizWebAPI.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class QuizController : Controller
     {
         private readonly ILogger logger;
         private readonly IMapper mapper;
-        private readonly IRepository quizRepository;
+        private readonly IQuizService quizService;
 
-        public QuizController(ILogger<QuizController> logger, IMapper mapper, IRepository quizRepository)
+        public QuizController(ILogger<QuizController> logger, IMapper mapper, IQuizService quizService)
         {
             this.logger = logger;
             this.mapper = mapper;
-            this.quizRepository = quizRepository;
+            this.quizService = quizService;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace QuizWebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllQuiz()
         {
-            var quizzes = await quizRepository.GetQuizzesAsync();
+            var quizzes = await quizService.GetQuizzesAsync();
             return Ok(mapper.Map<List<GetQuizResponse>>(quizzes));
         }
 
@@ -59,7 +60,7 @@ namespace QuizWebAPI.Controllers
         [ProducesResponseType(typeof(GetQuizResponse), 201)]
         public async Task<IActionResult> GetQuiz([FromRoute] int id)
         {
-            var quiz = await quizRepository.GetQuizByIdAsync(id);
+            var quiz = await quizService.GetQuizByIdAsync(id);
             if(quiz == null)
             {
                 return NotFound();
@@ -81,7 +82,7 @@ namespace QuizWebAPI.Controllers
             // Convert DTO to Domain Modell
             var newQuiz = mapper.Map<Quiz>(quiz);
 
-            var savedQuiz = await quizRepository.CreateQuizAsync(newQuiz);
+            var savedQuiz = await quizService.CreateQuizAsync(newQuiz);
             if (savedQuiz == null)
             {
                 return BadRequest();

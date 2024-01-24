@@ -1,4 +1,4 @@
-﻿namespace QuizWebAPI.Services
+﻿namespace QuizWebAPI.Services.Interfaces
 {
     public interface ICacheService
     {

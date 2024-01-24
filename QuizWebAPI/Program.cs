@@ -1,6 +1,7 @@
 using Models.Mappings;
 using QuizWebAPI.ServiceInstallers;
 using QuizWebAPI.Services;
+using QuizWebAPI.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

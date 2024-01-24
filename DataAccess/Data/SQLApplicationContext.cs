@@ -26,7 +26,6 @@ namespace DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserAnswer>().HasKey(u => u.Id);
         }
     }
 }

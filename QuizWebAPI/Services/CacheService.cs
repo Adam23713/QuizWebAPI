@@ -1,4 +1,5 @@
-﻿using QuizWebAPI.Services.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using QuizWebAPI.Services.Interfaces;
 using StackExchange.Redis;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
@@ -7,11 +8,17 @@ namespace QuizWebAPI.Services
 {
     public class CacheService : ICacheService
     {
+        private readonly IConfiguration configuration;
         private readonly IDatabase cacheDatabase;
 
-        public CacheService()
+        public CacheService(IConfiguration configuration)
         {
-            var redis = ConnectionMultiplexer.Connect("localhost:");
+            if(configuration == null)
+            {  
+                throw new ArgumentNullException(nameof(configuration));
+            }
+            this.configuration = configuration;
+            var redis = ConnectionMultiplexer.Connect(configuration["Cache:Redis"]);
             cacheDatabase = redis.GetDatabase();
         }
 

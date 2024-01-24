@@ -16,7 +16,7 @@ namespace QuizWebAPI.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class QuizController : Controller
     {
         private readonly ILogger logger;

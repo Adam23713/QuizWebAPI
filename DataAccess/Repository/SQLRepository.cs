@@ -29,11 +29,14 @@ namespace DataAccess.Repository
             return await context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers).FirstOrDefaultAsync(q => q.Id == id);
         }
 
+        public IEnumerable<Quiz> GetQuizzes()
+        {
+            return context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers).ToList();
+        }
+
         public async Task<IEnumerable<Quiz>> GetQuizzesAsync()
         {
-            return await context.Quizzes
-                .Include(q => q.Questions).ThenInclude(a => a.Answers)
-                .ToListAsync();
+            return await context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers).ToListAsync();
         }
     }
 }

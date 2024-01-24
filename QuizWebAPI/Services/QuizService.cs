@@ -21,19 +21,29 @@ namespace QuizWebAPI.Services
             this.cacheService = cacheService;
         }
 
-        private async Task CacheDate<T>(string key, T data)
+        private async Task CacheDateAsync<T>(string key, T data)
         {
             var succesCaching = await cacheService.SetData<T>(key, data, DateTimeOffset.Now.AddMinutes(cacheExpireTimeInMinutes));
             if (!succesCaching)
             {
-                logger.LogError("All quiz caching failed!");
+                logger.LogError("Data caching failed");
+            }
+            else 
+            {
+                logger.LogInformation("Data cached");
             }
         }
 
-        private async Task<IEnumerable<Quiz>> ReadAndCacheAllQuiz()
+        public void CacheAllQuizzes()
+        {
+            var quizzes = GetQuizzes();
+            CacheDateAsync(allQuizKey, quizzes).Wait();
+        }
+
+        private async Task<IEnumerable<Quiz>> ReadAndCacheAllQuizAsync()
         {
             var quizzes = await quizRepository.GetQuizzesAsync();
-            await CacheDate(allQuizKey, quizzes);
+            await CacheDateAsync(allQuizKey, quizzes);
             return quizzes;
         }
 
@@ -44,7 +54,7 @@ namespace QuizWebAPI.Services
             var quizzes = await cacheService.GetData<IEnumerable<Quiz>>(allQuizKey);
             if(quizzes == null)
             {
-                quizzes = await ReadAndCacheAllQuiz();
+                quizzes = await ReadAndCacheAllQuizAsync();
             }
             return quizzes;
         }
@@ -66,7 +76,7 @@ namespace QuizWebAPI.Services
             var removeResult = await cacheService.RemoveData(allQuizKey);
             if (removeResult is bool && (bool)removeResult)
             {
-                var list = await ReadAndCacheAllQuiz();
+                var list = await ReadAndCacheAllQuizAsync();
                 if(list.IsNullOrEmpty())
                 {
                     logger.LogError("Failed to create new quiz");
@@ -77,6 +87,11 @@ namespace QuizWebAPI.Services
                 logger.LogError("Quiz remove and re caching failed");
             }
             return newQuiz;
+        }
+
+        public IEnumerable<Quiz> GetQuizzes()
+        {
+            return quizRepository.GetQuizzes();
         }
 
         #endregion

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.Modles.Domain;
@@ -16,7 +15,7 @@ namespace QuizWebAPI.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class QuizController : Controller
     {
         private readonly ILogger logger;
@@ -93,6 +92,33 @@ namespace QuizWebAPI.Controllers
 
             // Return created http code and show saved user
             return CreatedAtAction(nameof(GetQuiz), new { id = savedQuiz.Id }, savedQuizDto);
+        }
+
+        /// <summary>
+        /// Delete selected quiz
+        /// </summary>
+        /// <remarks>
+        ///    Sample **request**:
+        ///    
+        ///        Delete /Quiz/1
+        /// </remarks>
+        /// <response code="200">Quiz deleted</response>
+        /// <response code="404">Quiz not found</response>
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteQuiz([FromRoute] int id)
+        {
+            var quiz = await quizService.GetQuizByIdAsync(id);
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+
+            var result = await quizService.DeleteQuiz(quiz);
+            if(result)
+            {
+                return Ok("Quiz deleted");
+            }
+            return BadRequest("Quiz cannot delete");
         }
 
     }

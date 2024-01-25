@@ -12,9 +12,9 @@ namespace QuizWebAPI.Services
 
         private readonly ILogger logger;
         ICacheService cacheService;
-        private readonly IRepository quizRepository;
+        private readonly IQuizRepository quizRepository;
 
-        public QuizService(ILogger<QuizService> logger, IRepository quizRepository, ICacheService cacheService)
+        public QuizService(ILogger<QuizService> logger, IQuizRepository quizRepository, ICacheService cacheService)
         {
             this.logger = logger;
             this.quizRepository = quizRepository;
@@ -70,28 +70,43 @@ namespace QuizWebAPI.Services
             return selectedQuiz;
         }
 
+        public IEnumerable<Quiz> GetQuizzes()
+        {
+            return quizRepository.GetQuizzes();
+        }
+
         public async Task<Quiz> CreateQuizAsync(Quiz quiz)
         {
             var newQuiz = await quizRepository.CreateQuizAsync(quiz);
+            await ReCacheAllQuiz();
+            return newQuiz;
+        }
+
+        private async Task ReCacheAllQuiz()
+        {
             var removeResult = await cacheService.RemoveData(allQuizKey);
             if (removeResult is bool && (bool)removeResult)
             {
                 var list = await ReadAndCacheAllQuizAsync();
-                if(list.IsNullOrEmpty())
+                if (list.IsNullOrEmpty())
                 {
                     logger.LogError("Failed to create new quiz");
                 }
             }
             else
             {
-                logger.LogError("Quiz remove and re caching failed");
+                logger.LogError("Quiz remove and re-caching failed");
             }
-            return newQuiz;
         }
 
-        public IEnumerable<Quiz> GetQuizzes()
+        public async Task<bool> DeleteQuiz(Quiz quiz)
         {
-            return quizRepository.GetQuizzes();
+            var result = await quizRepository.DeleteQuiz(quiz);
+            if(result)
+            {
+                await ReCacheAllQuiz();
+            }
+            return result;
         }
 
         #endregion

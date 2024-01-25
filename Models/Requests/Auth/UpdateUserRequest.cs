@@ -2,7 +2,7 @@
 
 namespace Models.Requests.Auth
 {
-    public class LoginUserRequest
+    public class UpdateUserRequest
     {
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -10,6 +10,12 @@ namespace Models.Requests.Auth
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = null!;
+        public string CurrentPassword { get; set; } = null!;
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; } = null!;
+
+        public List<string>? Roles { get; set; }
     }
 }

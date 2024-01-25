@@ -28,6 +28,12 @@ namespace DataAccess.Repository
                 new Claim(ClaimTypes.Email, user.UserName)
             };
 
+            // Add user roles to claims
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var creditians = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

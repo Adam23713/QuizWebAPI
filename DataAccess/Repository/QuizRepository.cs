@@ -6,12 +6,12 @@ using Models.Modles.Domain;
 
 namespace DataAccess.Repository
 {
-    public class SQLRepository : IRepository
+    public class QuizRepository : IQuizRepository
     {
         private readonly ILogger logger;
         private readonly SQLApplicationContext context;
 
-        public SQLRepository(SQLApplicationContext context, ILogger<SQLRepository> logger)
+        public QuizRepository(SQLApplicationContext context, ILogger<QuizRepository> logger)
         {
             this.context = context;
             this.logger = logger;
@@ -22,6 +22,20 @@ namespace DataAccess.Repository
             context.Quizzes.Add(quiz);
             await context.SaveChangesAsync();
             return quiz;
+        }
+
+        public async Task<bool> DeleteQuiz(Quiz quiz)
+        {
+            if(quiz != null)
+            {
+                var result = context.Quizzes.Remove(quiz);
+                if(result != null && result.State == EntityState.Deleted)
+                {
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            return false;
         }
 
         public async Task<Quiz?> GetQuizByIdAsync(int id)

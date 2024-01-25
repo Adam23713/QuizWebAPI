@@ -2,7 +2,7 @@
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IRepository
+    public interface IQuizRepository
     {
         IEnumerable<Quiz> GetQuizzes();
 
@@ -11,5 +11,7 @@ namespace DataAccess.Repository.Interfaces
         Task<Quiz?> GetQuizByIdAsync(int id);
 
         Task<Quiz> CreateQuizAsync(Quiz quiz);
+
+        Task<bool> DeleteQuiz(Quiz quiz);
     }
 }

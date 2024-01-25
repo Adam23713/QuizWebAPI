@@ -24,7 +24,7 @@ namespace DataAccess.Repository
             return quiz;
         }
 
-        public async Task<bool> DeleteQuiz(Quiz quiz)
+        public async Task<bool> DeleteQuizAsync(Quiz quiz)
         {
             if(quiz != null)
             {
@@ -51,6 +51,12 @@ namespace DataAccess.Repository
         public async Task<IEnumerable<Quiz>> GetQuizzesAsync()
         {
             return await context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers).ToListAsync();
+        }
+
+        public async Task<bool> UpdateQuizAsync(Quiz quiz)
+        {
+            await Task.Delay(1000);
+            return true;
         }
     }
 }

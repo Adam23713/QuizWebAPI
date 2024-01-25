@@ -12,6 +12,8 @@ namespace DataAccess.Repository.Interfaces
 
         Task<Quiz> CreateQuizAsync(Quiz quiz);
 
-        Task<bool> DeleteQuiz(Quiz quiz);
+        Task<bool> DeleteQuizAsync(Quiz quiz);
+
+        Task<bool> UpdateQuizAsync(Quiz quiz);
     }
 }

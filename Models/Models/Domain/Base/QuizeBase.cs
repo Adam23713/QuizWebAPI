@@ -20,5 +20,17 @@ namespace Models.BaseModles.Domain.Base
         public DateTime End { get; set; }
 
         public List<T> Questions { get; set; } = null!;
+
+        public void UpdateProperties(QuizeBase<T> other)
+        {
+            IsEnabled = other.IsEnabled;
+            Name = other.Name;
+            Description = other.Description;
+            TimeLimitInMinutes = other.TimeLimitInMinutes;
+            Begin = other.Begin;
+            End = other.End;
+            
+
+        }
     }
 }

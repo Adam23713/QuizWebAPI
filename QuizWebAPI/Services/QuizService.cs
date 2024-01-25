@@ -21,6 +21,25 @@ namespace QuizWebAPI.Services
             this.cacheService = cacheService;
         }
 
+        #region Cache
+
+        private async Task ForceReCacheAllQuiz()
+        {
+            var removeResult = await cacheService.RemoveData(allQuizKey);
+            if (removeResult is bool && (bool)removeResult)
+            {
+                var list = await ReadAndCacheAllQuizAsync();
+                if (list.IsNullOrEmpty())
+                {
+                    logger.LogError("Failed to cache quizzes");
+                }
+            }
+            else
+            {
+                logger.LogError("Quiz remove and re-caching failed");
+            }
+        }
+
         private async Task CacheDateAsync<T>(string key, T data)
         {
             var succesCaching = await cacheService.SetData<T>(key, data, DateTimeOffset.Now.AddMinutes(cacheExpireTimeInMinutes));
@@ -46,6 +65,8 @@ namespace QuizWebAPI.Services
             await CacheDateAsync(allQuizKey, quizzes);
             return quizzes;
         }
+
+        #endregion
 
         #region CRUD_FOR_QUIZ
 
@@ -78,33 +99,26 @@ namespace QuizWebAPI.Services
         public async Task<Quiz> CreateQuizAsync(Quiz quiz)
         {
             var newQuiz = await quizRepository.CreateQuizAsync(quiz);
-            await ReCacheAllQuiz();
+            await ForceReCacheAllQuiz();
             return newQuiz;
         }
 
-        private async Task ReCacheAllQuiz()
+        public async Task<bool> UpdateQuizAsync(Quiz quiz)
         {
-            var removeResult = await cacheService.RemoveData(allQuizKey);
-            if (removeResult is bool && (bool)removeResult)
+            var result = await quizRepository.UpdateQuizAsync(quiz);
+            if (result)
             {
-                var list = await ReadAndCacheAllQuizAsync();
-                if (list.IsNullOrEmpty())
-                {
-                    logger.LogError("Failed to create new quiz");
-                }
+                await ForceReCacheAllQuiz();
             }
-            else
-            {
-                logger.LogError("Quiz remove and re-caching failed");
-            }
+            return result;
         }
 
-        public async Task<bool> DeleteQuiz(Quiz quiz)
+        public async Task<bool> DeleteQuizAsync(Quiz quiz)
         {
-            var result = await quizRepository.DeleteQuiz(quiz);
+            var result = await quizRepository.DeleteQuizAsync(quiz);
             if(result)
             {
-                await ReCacheAllQuiz();
+                await ForceReCacheAllQuiz();
             }
             return result;
         }

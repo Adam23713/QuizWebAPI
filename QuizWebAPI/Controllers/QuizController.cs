@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Models.Filters;
 using Models.Modles.Domain;
 using Models.Requests.Quiz;
+using Models.Response;
 using Models.Response.Quiz;
 using QuizWebAPI.Services.Interfaces;
 
@@ -62,7 +66,7 @@ namespace QuizWebAPI.Controllers
             var quiz = await quizService.GetQuizByIdAsync(id);
             if(quiz == null)
             {
-                return NotFound();
+                return NotFound(new ErrorResponse("Quiz not found"));
             }
 
             return Ok(mapper.Map<GetQuizResponse>(quiz));
@@ -75,6 +79,7 @@ namespace QuizWebAPI.Controllers
         /// <response code="201">Create a quiz in the system</response>
         /// <response code="400">Bad request</response>
         [HttpPost]
+        [ServiceFilter(typeof(ValidateModelFilter))]
         [ProducesResponseType(typeof(GetQuizResponse), 201)]
         public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizRequest quiz)
         {
@@ -84,7 +89,7 @@ namespace QuizWebAPI.Controllers
             var savedQuiz = await quizService.CreateQuizAsync(newQuiz);
             if (savedQuiz == null)
             {
-                return BadRequest();
+                return BadRequest(new ErrorResponse("Cannot create Quiz"));
             }
 
             // Convert back to DTO
@@ -110,16 +115,43 @@ namespace QuizWebAPI.Controllers
             var quiz = await quizService.GetQuizByIdAsync(id);
             if (quiz == null)
             {
-                return NotFound();
+                return NotFound(new ErrorResponse("Quiz not found"));
             }
 
-            var result = await quizService.DeleteQuiz(quiz);
+            var result = await quizService.DeleteQuizAsync(quiz);
             if(result)
             {
                 return Ok("Quiz deleted");
             }
-            return BadRequest("Quiz cannot delete");
+            return BadRequest(new ErrorResponse("Quiz cannot delete"));
         }
+
+        /// <summary>
+        /// Update selected quiz
+        /// </summary>
+        /// <remarks>
+        ///    Sample **request**:
+        ///    
+        ///        Update /Quiz/1
+        /// </remarks>
+        /// <response code="200">Quiz updated</response>
+        /// <response code="404">Quiz not found</response>
+        /*[HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateQuiz([FromRoute] int id)
+        {
+            var quiz = await quizService.GetQuizByIdAsync(id);
+            if (quiz == null)
+            {
+                return NotFound(new ErrorResponse("Quiz not found"));
+            }
+
+            var result = await quizService.UpdateQuiz(quiz);
+            if (result)
+            {
+                return Ok("Quiz updated");
+            }
+            return BadRequest(new ErrorResponse("Quiz cannot update"));
+        }*/
 
     }
 }

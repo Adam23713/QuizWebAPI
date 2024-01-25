@@ -1,4 +1,4 @@
-﻿using Models.BaseModles.Domain.Base;
+﻿using Models.Models.Domain.Base;
 using Models.Requests.Quiz;
 using Swashbuckle.AspNetCore.Filters;
 

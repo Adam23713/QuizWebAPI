@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Models.BaseModles.Domain.Base;
 using Models.Models.DTO;
-using Models.Modles.Domain;
+using Models.Models.Domain;
 using Models.Requests.Quiz;
 using Models.Response.Quiz;
+using Models.Models.Domain.Base;
 
 namespace Models.Mappings
 {
@@ -11,15 +11,14 @@ namespace Models.Mappings
     {
         public AutoMapperProfile()
         {
-            CreateMap<Quiz, GetQuizResponse>().ReverseMap();  
+            CreateMap<Quiz, GetQuizResponse>().ReverseMap();       
             CreateMap<Quiz, CreateQuizRequest>().ReverseMap();       
-            CreateMap<Question, QuestionDTO>().ReverseMap();       
-            CreateMap<Answer, AnswerDTO>().ReverseMap();       
-            CreateMap<UserAnswerDTO, UserAnswer>().ReverseMap();
+            CreateMap<Question, QuestionDTO>().ReverseMap();
+            CreateMap<Answer, AnswerDTO>().ReverseMap();
             CreateMap<AnswerBase, Answer>().ReverseMap();
-            CreateMap<QuestionBase<Answer>, Question>().ReverseMap();
-            CreateMap<QuestionBase<AnswerBase>, Question>().ReverseMap();
-            CreateMap<Quiz, QuizeBase<Question>>().ReverseMap();
+            CreateMap<AnswerWithNullableID, AnswerBase>().ReverseMap();
+            CreateMap<QuestionWitNullableID, Question>().ReverseMap();
+            CreateMap<UserAnswerDTO, UserAnswer>().ReverseMap();       
         }
     }
 }

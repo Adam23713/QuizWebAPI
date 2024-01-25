@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Models.BaseModles.Domain.Base
+namespace Models.Models.Domain.Base
 {
     /// <summary>
     /// Base model of User Answer. No id in the base class

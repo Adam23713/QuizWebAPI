@@ -1,7 +1,7 @@
-﻿using Models.BaseModles.Domain.Base;
+﻿using Models.Models.Domain.Base;
 using Models.Interfaces;
 
-namespace Models.Modles.Domain
+namespace Models.Models.Domain
 {
     public class Answer : AnswerBase, IIdentity
     {

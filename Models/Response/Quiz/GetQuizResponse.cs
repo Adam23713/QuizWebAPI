@@ -1,5 +1,5 @@
-﻿using Models.BaseModles.Domain.Base;
-using Models.Interfaces;
+﻿using Models.Interfaces;
+using Models.Models.Domain.Base;
 using Models.Models.DTO;
 
 namespace Models.Response.Quiz

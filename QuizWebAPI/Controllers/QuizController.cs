@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Models.Filters;
-using Models.Modles.Domain;
+using Models.Models.Domain;
 using Models.Requests.Quiz;
 using Models.Response;
 using Models.Response.Quiz;
@@ -136,22 +134,22 @@ namespace QuizWebAPI.Controllers
         /// </remarks>
         /// <response code="200">Quiz updated</response>
         /// <response code="404">Quiz not found</response>
-        /*[HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateQuiz([FromRoute] int id)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateQuiz([FromBody] UpdateQuizRequest updatedQuiz, [FromRoute] int id)
         {
-            var quiz = await quizService.GetQuizByIdAsync(id);
-            if (quiz == null)
+            var originalQuiz = await quizService.GetQuizByIdAsync(id);
+            if (originalQuiz == null)
             {
                 return NotFound(new ErrorResponse("Quiz not found"));
             }
 
-            var result = await quizService.UpdateQuiz(quiz);
+            var result = await quizService.UpdateQuizAsync(updatedQuiz, originalQuiz);
             if (result)
             {
                 return Ok("Quiz updated");
             }
             return BadRequest(new ErrorResponse("Quiz cannot update"));
-        }*/
+        }
 
     }
 }

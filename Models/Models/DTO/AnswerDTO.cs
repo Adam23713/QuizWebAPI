@@ -1,4 +1,4 @@
-﻿using Models.BaseModles.Domain.Base;
+﻿using Models.Models.Domain.Base;
 using Models.Interfaces;
 
 namespace Models.Models.DTO

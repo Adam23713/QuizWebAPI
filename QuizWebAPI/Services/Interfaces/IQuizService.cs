@@ -1,5 +1,5 @@
 ﻿using DataAccess.Repository.Interfaces;
-using Models.Modles.Domain;
+using Models.Models.Domain;
 
 namespace QuizWebAPI.Services.Interfaces
 {

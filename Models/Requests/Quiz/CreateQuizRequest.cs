@@ -1,5 +1,4 @@
-﻿using Models.BaseModles.Domain.Base;
-using Models.Modles.Domain;
+﻿using Models.Models.Domain.Base;
 
 namespace Models.Requests.Quiz
 {

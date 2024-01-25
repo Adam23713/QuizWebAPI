@@ -1,4 +1,5 @@
-﻿using Models.Modles.Domain;
+﻿using Models.Models.Domain;
+using Models.Requests.Quiz;
 
 namespace DataAccess.Repository.Interfaces
 {
@@ -14,6 +15,6 @@ namespace DataAccess.Repository.Interfaces
 
         Task<bool> DeleteQuizAsync(Quiz quiz);
 
-        Task<bool> UpdateQuizAsync(Quiz quiz);
+        Task<bool> UpdateQuizAsync(UpdateQuizRequest updatedQuiz, Quiz original);
     }
 }

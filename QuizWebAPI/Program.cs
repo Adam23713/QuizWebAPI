@@ -23,7 +23,6 @@ Select(Activator.CreateInstance).Cast<IServiceInstaller>().ToList();
 servicesInstallers.ForEach(installer => installer.InstallServices(builder.Services, builder.Configuration));
 
 builder.Services.AddScoped<ICacheService, CacheService>();
-//builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
 var app = builder.Build();
 
@@ -34,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionHandlerMiddleware>(); //Implemented IMiddleware interface so need to inject as transient service
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

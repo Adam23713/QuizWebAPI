@@ -1,9 +1,4 @@
-﻿using Models.BaseModles.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models.Models.Domain.Base;
 
 namespace Models.Models.DTO
 {

@@ -1,6 +1,4 @@
-﻿using Models.Modles.Domain;
-
-namespace Models.BaseModles.Domain.Base
+﻿namespace Models.Models.Domain.Base
 {
     /// <summary>
     /// Base model of Questin. No id in the base class

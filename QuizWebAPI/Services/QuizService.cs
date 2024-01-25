@@ -1,6 +1,7 @@
 ﻿using DataAccess.Repository.Interfaces;
 using Microsoft.IdentityModel.Tokens;
-using Models.Modles.Domain;
+using Models.Models.Domain;
+using Models.Requests.Quiz;
 using QuizWebAPI.Services.Interfaces;
 
 namespace QuizWebAPI.Services
@@ -103,9 +104,9 @@ namespace QuizWebAPI.Services
             return newQuiz;
         }
 
-        public async Task<bool> UpdateQuizAsync(Quiz quiz)
+        public async Task<bool> UpdateQuizAsync(UpdateQuizRequest updatedQuiz, Quiz original)
         {
-            var result = await quizRepository.UpdateQuizAsync(quiz);
+            var result = await quizRepository.UpdateQuizAsync(updatedQuiz, original);
             if (result)
             {
                 await ForceReCacheAllQuiz();

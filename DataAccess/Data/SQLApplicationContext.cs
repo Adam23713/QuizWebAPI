@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Models.BaseModles.Domain.Base;
-using Models.Modles.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Models.Models.Domain;
 
 namespace DataAccess.Data
 {

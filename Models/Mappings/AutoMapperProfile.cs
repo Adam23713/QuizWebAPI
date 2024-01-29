@@ -13,6 +13,9 @@ namespace Models.Mappings
         {
             CreateMap<Quiz, GetQuizResponse>().ReverseMap();       
             CreateMap<Quiz, CreateQuizRequest>().ReverseMap();       
+            CreateMap<Quiz, GetQuizForGameResponse>().ReverseMap(); 
+            CreateMap<QuestionForGame, Question>().ReverseMap(); 
+            CreateMap<Answer, CroppedAnswerDTO>().ReverseMap(); 
             CreateMap<Question, QuestionDTO>().ReverseMap();
             CreateMap<Answer, AnswerDTO>().ReverseMap();
             CreateMap<AnswerBase, Answer>().ReverseMap();

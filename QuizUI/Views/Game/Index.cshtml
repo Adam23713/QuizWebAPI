@@ -1,0 +1,30 @@
+﻿@model IEnumerable<QuizInfoDTO>
+
+@{
+}
+
+<h1 class="mt-3">Quizzes</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var quiz in Model)
+        {
+            <tr>
+                <td>@quiz.Id</td>
+                <td>@quiz.QuizName</td>
+                <td>@quiz.Description</td>
+                <td>
+                    <a asp-controller="Game" asp-action="Start" asp-route-id="@quiz.Id" class="btn btn-light">Start</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -53,6 +53,7 @@ namespace QuizWebAPI.Controllers
             {
                 var response = mapper.Map<GetQuizForGameResponse>(quiz);
                 response.UserId = userId;
+                response.ApiURL = $"{Request.Scheme}://{Request.Host}/game";
                 return Ok(response);
             }
             return NotFound($"Quiz not found: {id}");

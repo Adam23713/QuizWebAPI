@@ -32,6 +32,7 @@
 
 @section Scripts {
     <script>
+        var apiUrl = '@Model.ApiURL';
         $(document).ready(function () {
             var currentQuestionIndex = 0;
             var quiz; // Declare the quiz variable outside of any function scope
@@ -67,7 +68,7 @@
                 var userId = @Model.UserId; // Replace with the actual user ID
 
                 $.ajax({
-                    url: `https://localhost:7094/game/result/${quizId}?userId=${userId}`,
+                    url: `${apiUrl}/result/${quizId}?userId=${userId}`,
                     type: "GET",
                     contentType: "application/json",
                     headers: {
@@ -99,7 +100,7 @@
                 };
 
                 $.ajax({
-                    url: "https://localhost:7094/game/submit",
+                    url: `${apiUrl}/submit`,
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify(userAnswer),

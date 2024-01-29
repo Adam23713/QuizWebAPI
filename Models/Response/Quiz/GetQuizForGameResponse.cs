@@ -9,6 +9,8 @@ namespace Models.Response.Quiz
         public int Id { get; set; }
 
         public int UserId { get; set; }
+
+        public string ApiURL { get; set; } = null!;
     }
 
     public class QuestionForGame : QuestionBase<CroppedAnswerDTO>, IIdentity

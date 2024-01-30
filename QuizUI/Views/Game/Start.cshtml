@@ -9,7 +9,7 @@
 <div id="quizContainer">
     @for (int i = 0; i < Model.Questions.Count; i++)
     {
-        <div class="question-container" style="display: @(i == 0 ? "block" : "none")">
+        <div class="question-container" style="display: @(i == @Model.BeginQuestionIndex ? "block" : "none")">
             <h3>Question @(i + 1)</h3>
             <p class="question-text">@Model.Questions[i].QuestionText</p>
 
@@ -34,7 +34,7 @@
     <script>
         var apiUrl = '@Model.ApiURL';
         $(document).ready(function () {
-            var currentQuestionIndex = 0;
+            var currentQuestionIndex = @Model.BeginQuestionIndex;
             var quiz; // Declare the quiz variable outside of any function scope
 
             function showQuestion(questionIndex) {

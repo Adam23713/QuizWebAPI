@@ -20,8 +20,7 @@ namespace Models.Mappings
             CreateMap<Answer, AnswerDTO>().ReverseMap();
             CreateMap<AnswerBase, Answer>().ReverseMap();
             CreateMap<AnswerWithNullableID, AnswerBase>().ReverseMap();
-            CreateMap<QuestionWitNullableID, Question>().ReverseMap();
-            CreateMap<UserAnswerDTO, UserAnswer>().ReverseMap();       
+            CreateMap<QuestionWitNullableID, Question>().ReverseMap();      
         }
     }
 }

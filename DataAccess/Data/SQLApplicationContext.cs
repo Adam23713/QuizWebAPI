@@ -11,8 +11,6 @@ namespace DataAccess.Data
 
         public DbSet<Answer> Answers { get; set; } = null!;
 
-        public DbSet<UserAnswer> UserAnswers { get; set; } = null!;
-
         public SQLApplicationContext(DbContextOptions<SQLApplicationContext> options) : base(options)
         {
             

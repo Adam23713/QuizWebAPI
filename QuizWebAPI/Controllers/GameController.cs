@@ -35,14 +35,15 @@ namespace QuizWebAPI.Controllers
         [Route("result/{id:int}")]
         public async Task<IActionResult> ShowQuizResult(int id, [FromQuery] int userId)
         {
-            return Ok("Result is: 20/20");
+            return Ok(await quizService.GetResultAsync(id, userId));
         }
 
         [HttpPost]
         [Route("submit")]
-        public IActionResult SubmitAnswer([FromBody] UserAnswerDTO userAnswer)
+        public async Task<IActionResult> SubmitAnswer([FromBody] UserAnswerDTO userAnswer)
         {
-            return Ok(userAnswer);
+            await quizService.SubmitAnswer(userAnswer);
+            return Ok();
         }
 
         [HttpGet("{id:int}")]
@@ -54,6 +55,11 @@ namespace QuizWebAPI.Controllers
                 var response = mapper.Map<GetQuizForGameResponse>(quiz);
                 response.UserId = userId;
                 response.ApiURL = $"{Request.Scheme}://{Request.Host}/game";
+
+                //Submit Start
+                response.BeginQuestionIndex = await quizService.SubmitQuizStart(id, userId, response.TimeLimitInMinutes);
+
+                
                 return Ok(response);
             }
             return NotFound($"Quiz not found: {id}");
